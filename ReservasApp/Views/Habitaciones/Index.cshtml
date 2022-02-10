@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Entities.Models.Habitacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoHabitacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroHabitacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hotel.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoHabitacion.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroHabitacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cupo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.HabitacionId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.HabitacionId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.HabitacionId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+
+@section Paginar {
+    @{
+        await Html.RenderPartialAsync("_PaginarIndexPartial");
+    }
+
+}
+
+
+@section Scripts{
+    <script>
+        // Workaround to fix style of text for showing items .. through ..
+        // Problem related to Boostrap 4 according to issue in link below
+        // https://github.com/dncuug/X.PagedList/issues/127
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}
