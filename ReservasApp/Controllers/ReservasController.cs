@@ -63,7 +63,7 @@ namespace ReservasApp.Controllers
                 .Include(r => r.Cliente)
                 .Include(r => r.Habitacion)
                 .ThenInclude(r => r.Hotel)
-                .Where(r => (r.FechaInicio > f2 || r.FechaFin < f1));
+                .Where(r => (r.FechaInicio <= f1 || r.FechaFin >= f2));
 
             return View(await reservas.ToPagedListAsync(pageNumber, pageSize));
 
